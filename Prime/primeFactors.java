@@ -20,6 +20,6 @@ public class primeFactors {
     }
     public static void main(String[] args) {
         primeFactors p=new primeFactors();
-        System.out.println(p.PrimeFactors(5456));
+        System.out.println(p.PrimeFactors(18));
     }
 }
