@@ -10,6 +10,7 @@ public class Subset {
             List<Integer> subset=new ArrayList<>();
             for(int j=0;j<nums.length;j++){
                 if((i&(1<<j))!=0){
+                    System.out.println(i+" "+Integer.toBinaryString(i));
                     subset.add(nums[j]);
                 }
             }
