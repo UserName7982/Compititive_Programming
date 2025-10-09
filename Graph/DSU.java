@@ -2,31 +2,36 @@ package Graph;
 
 public class DSU {
     
-    public int[] parent;
-    public int[] size;
+    private int[] parent;
+    private int[] size;
 
-    public void make(int v){
-        parent[v]=v;
-        size[v]=1;
-    }
-
-    public int find(int v){
-        if (parent[v]==v) {
-            return v;
+    public DSU(int n) {
+        parent = new int[n+1];
+        size = new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
+            size[i] = 1;
         }
-        return parent[v]=find(v);
     }
 
-    public void union(int u,int v){
-        int a=find(u);
-        int b=find(v);
+    public int find(int v) {
+        if (parent[v] != v) {
+            parent[v] = find(parent[v]); // Path compression
+        }
+        return parent[v];
+    }
 
-        if(size[a]<size[b]){
-            parent[a]=b;
-            size[a]+=b;
-        }else{
-            parent[b]=a;
-            size[b]+=a;
+    public void union(int u, int v) {
+        int a = find(u);
+        int b = find(v);
+        if (a != b) {
+            if (size[a] < size[b]) {
+                parent[a] = b;
+                size[b] += size[a];
+            } else {
+                parent[b] = a;
+                size[a] += size[b];
+            }
         }
     }
 }
