@@ -25,14 +25,35 @@ public class SegmentTree {
         int right=query(2*indx+2,mid+1,high,l,r,seg);
         return Math.min(left,right);
     }
+
+    public int update(int indx,int low,int high,int pos,int val,int seg[]) {
+        if (low==high) {
+            seg[indx]=val;
+            return val;
+        }
+        int mid=(low+high)/2;
+        if (pos<=mid) {
+            update(2*indx+1,low,mid,pos,val,seg);
+        } else {
+            update(2*indx+2,mid+1,high,pos,val,seg);
+        }
+        seg[indx]=Math.min(seg[2*indx+1],seg[2*indx+2]);
+        return seg[indx];
+    }
+
     public static void main(String[] args) {
         SegmentTree st=new SegmentTree();
         int arr[]={1,3,2,7,9,11};
         int n=arr.length;
         int seg[]=new int[4*n];
         st.Build(0,0,n-1,0,n-1,arr,seg);
-        int l=3;
+        int l=1;
         int r=5;
+        System.out.println(st.query(0,0,n-1,l,r,seg));
+        int pos=1;
+        int val=0;
+        st.update(0,0,n-1,pos,val,seg);
+        arr[pos]=val;
         System.out.println(st.query(0,0,n-1,l,r,seg));
     }
 }
