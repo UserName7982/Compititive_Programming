@@ -47,5 +47,6 @@ public class GoodSequence {
             ans=Math.max(ans, dp[i]);
         }
         System.out.println(ans);
+        sc.close();
     }
 }
