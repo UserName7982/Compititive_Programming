@@ -1,66 +1,83 @@
 package CodeForces;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class cherry {
+
     static ArrayList<Integer>[] tree;
     static boolean[][] dp;
-    public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        int t=sc.nextInt();
 
-        while (t-->0) {
-            int n=sc.nextInt();
-            tree=new ArrayList[n+1];
-            for (int i = 0; i <= tree.length; i++) {
-                tree[i]=new ArrayList<>();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder out = new StringBuilder();
+
+        int t = Integer.parseInt(br.readLine());
+
+        while (t-- > 0) {
+            int n = Integer.parseInt(br.readLine());
+
+            tree = new ArrayList[n + 1];
+            for (int i = 1; i <= n; i++) {
+                tree[i] = new ArrayList<>();
             }
 
-            for (int i = 1; i <= n; i++) {
-                int u=sc.nextInt();
-                int v=sc.nextInt();
+            for (int i = 0; i < n - 1; i++) {
+                String[] parts = br.readLine().split(" ");
+                int u = Integer.parseInt(parts[0]);
+                int v = Integer.parseInt(parts[1]);
                 tree[u].add(v);
                 tree[v].add(u);
             }
 
-            dp=new boolean[n+1][3];
-            dfs(1,-1);
-            System.out.println(dp[1][0]);
+            dp = new boolean[n + 1][3];
+
+            dfs(1, 0);
+
+            out.append(dp[1][0] ? "YES\n" : "NO\n");
         }
+
+        System.out.print(out);
     }
 
-    static void dfs(int node, int parent){
-        boolean isleaf=true;
-        boolean[] ways={true,false,false};
+    static void dfs(int v, int parent) {
+        boolean isLeaf = true;
 
-        for(int child: tree[node]){
-            isleaf=false;
-            if (child==parent) {
-                continue;
-            }
-            dfs(child, node);
+        // Start with sum = 0 for "do not shake v"
+        boolean[] ways = new boolean[3];
+        ways[0] = true;
 
-            boolean[] new_ways=new boolean[3];
-            for (int i = 0; i < 3; i++) {
-                if (!ways[i]) {
-                    continue;
-                }
-                for (int j = 0; j < 3; j++) {
-                    if (dp[child][j]) {
-                        new_ways[(j+i)%3]=true;
+        for (int child : tree[v]) {
+            if (child == parent) continue;
+            isLeaf = false;
+
+            dfs(child, v);
+
+            boolean[] newWays = new boolean[3];
+
+            for (int a = 0; a < 3; a++) {
+                if (!ways[a]) continue;
+                for (int b = 0; b < 3; b++) {
+                    if (dp[child][b]) {
+                        newWays[(a + b) % 3] = true;
                     }
                 }
             }
-            ways=new_ways;
+
+            ways = newWays;
         }
-        if (isleaf) {
-            dp[node][1]=true;
+
+        if (isLeaf) {
+            // Leaf: must shake itself
+            dp[v][1] = true;
             return;
         }
-        for(int i=0; i<3; i++){
-            dp[node][i]=ways[i];
+
+        // Option 1: don't shake v
+        for (int r = 0; r < 3; r++) {
+            dp[v][r] = ways[r];
         }
-        dp[node][1]=true;
+
+        // Option 2: shake v
+        dp[v][1] = true;
     }
 }
