@@ -60,7 +60,7 @@ public class countGCD {
                 if ((mask & (1 << i)) != 0) {
                     long p = pf.get(i);
                     if (prod > range / p) {
-                        prod = range + 1; // too large → contributes zero
+                        prod = range + 1; 
                         break;
                     }
                     prod *= p;

@@ -1,31 +1,46 @@
+import java.io.*;
 import java.util.*;
- 
+
 public class man {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
- 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+
+        StringBuilder sb = new StringBuilder();
+
         while (t-- > 0) {
-            int n = sc.nextInt();
-            int k= sc.nextInt();
-            int[] a = new int[n];
-            int[] freq=new int[n+1];
-            for (int i = 0; i < n; i++) {
-                a[i] = sc.nextInt();
-                if(a[i]<n){
-                    freq[a[i]]++;
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            long n = Long.parseLong(st.nextToken());
+            long k = Long.parseLong(st.nextToken());
+
+            if (k > n) {
+                sb.append(-1).append('\n');
+                continue;
+            }
+
+            if (k == n) {
+                sb.append(0).append('\n');
+                continue;
+            }
+
+            int answer = -1;
+
+            // try all split depths
+            for (int i = 1; i <= 31; i++) {
+                long p = 1L << i;
+
+                long low = n / p;
+                long high = (n + p - 1) / p; // ceil
+
+                if (low == k || high == k) {
+                    answer = i;
+                    break;
                 }
             }
-            int m=0;
-            while (freq[m]>0){
-                m++;
-            }
-            int ans=m;
-            if(ans>k-1){
-                ans=k-1;
-            }
-            System.out.println(ans);
+
+            sb.append(answer).append('\n');
         }
-        sc.close();
+
+        System.out.print(sb.toString());
     }
 }
