@@ -2,14 +2,66 @@ package CodeForces;
 import java.io.*;
 import java.util.*;
 
-public class main {
+public class Main {
+    public static void main(String[] args) throws Exception {
+        FastScanner fs = new FastScanner(System.in);
+        StringBuilder sb = new StringBuilder();
 
+        int t = fs.nextInt();
+        while (t-- > 0) {
+            int n = fs.nextInt();
+            long x = fs.nextLong();
+
+            long base = 0L;
+            long maxS = Long.MIN_VALUE;
+
+            for (int i = 0; i < n; i++) {
+                long a = fs.nextLong();
+                long b = fs.nextLong();
+                long c = fs.nextLong();
+
+                // base contribution: (b-1)*a (uses without any rollback)
+                base = safeAdd(base, safeMul(Math.max(0L, b - 1L), a));
+
+                // s = b*a - c
+                long s = safeSub(safeMul(b, a), c);
+                if (s > maxS) maxS = s;
+            }
+
+            if (base >= x) {
+                sb.append(0).append('\n');
+            } else {
+                long need = x - base;
+                if (maxS <= 0) {
+                    sb.append(-1).append('\n');
+                } else {
+                    long ans = (need + maxS - 1) / maxS; // ceil division
+                    sb.append(ans).append('\n');
+                }
+            }
+        }
+
+        System.out.print(sb.toString());
+    }
+
+    // helper safe operations (useful to be robust; not strictly necessary here)
+    static long safeMul(long a, long b) {
+        return a * b;
+    }
+    static long safeAdd(long a, long b) {
+        return a + b;
+    }
+    static long safeSub(long a, long b) {
+        return a - b;
+    }
+
+    // fast scanner
     static class FastScanner {
+        private final InputStream in;
         private final byte[] buffer = new byte[1 << 16];
         private int ptr = 0, len = 0;
-        private final InputStream in = System.in;
-
-        int read() throws IOException {
+        FastScanner(InputStream is) { in = is; }
+        private int read() throws IOException {
             if (ptr >= len) {
                 len = in.read(buffer);
                 ptr = 0;
@@ -17,104 +69,18 @@ public class main {
             }
             return buffer[ptr++];
         }
-
-        int nextInt() throws IOException {
-            int c;
-            do c = read(); while (c <= ' ');
-            boolean neg = false;
-            if (c == '-') { neg = true; c = read(); }
-            int val = 0;
-            while (c > ' ') {
-                val = val * 10 + (c - '0');
-                c = read();
-            }
-            return neg ? -val : val;
-        }
-
         long nextLong() throws IOException {
             int c;
-            do c = read(); while (c <= ' ');
-            boolean neg = false;
-            if (c == '-') { neg = true; c = read(); }
+            while ((c = read()) <= ' ') if (c == -1) return Long.MIN_VALUE;
+            int sign = 1;
+            if (c == '-') { sign = -1; c = read(); }
             long val = 0;
             while (c > ' ') {
                 val = val * 10 + (c - '0');
                 c = read();
             }
-            return neg ? -val : val;
+            return val * sign;
         }
-
-        String next() throws IOException {
-            int c;
-            do c = read(); while (c <= ' ');
-            StringBuilder sb = new StringBuilder();
-            while (c > ' ') {
-                sb.append((char) c);
-                c = read();
-            }
-            return sb.toString();
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        FastScanner fs = new FastScanner();
-        StringBuilder out = new StringBuilder();
-
-        int t = fs.nextInt();
-        while (t-- > 0) {
-            int n = fs.nextInt();
-            int m = fs.nextInt();
-            int k = fs.nextInt();
-
-            long[] robots = new long[n];
-            HashMap<Long, Integer> index = new HashMap<>();
-            for (int i = 0; i < n; i++) {
-                robots[i] = fs.nextLong();
-                index.put(robots[i], i);
-            }
-
-            long[] spikes = new long[m];
-            for (int i = 0; i < m; i++) spikes[i] = fs.nextLong();
-
-            String gdCode = fs.next();
-
-            long[] offset = new long[k + 1];
-            for (int i = 1; i <= k; i++) {
-                offset[i] = offset[i - 1] + (gdCode.charAt(i - 1) == 'L' ? -1 : 1);
-            }
-
-            HashMap<Long, Integer> first = new HashMap<>();
-            for (int i = 1; i <= k; i++) {
-                first.putIfAbsent(offset[i], i);
-            }
-
-            int INF = k + 1;
-            int[] death = new int[n];
-            Arrays.fill(death, INF);
-
-            for (long s : spikes) {
-                for (Map.Entry<Long, Integer> e : first.entrySet()) {
-                    long need = s - e.getKey();
-                    Integer idx = index.get(need);
-                    if (idx != null) {
-                        death[idx] = Math.min(death[idx], e.getValue());
-                    }
-                }
-            }
-
-            int[] diedAt = new int[k + 2];
-            for (int i = 0; i < n; i++) {
-                if (death[i] <= k) diedAt[death[i]]++;
-            }
-
-            int dead = 0;
-            for (int i = 1; i <= k; i++) {
-                dead += diedAt[i];
-                out.append(n - dead).append(' ');
-            }
-            out.append('\n');
-        }
-
-        System.out.print(out.toString());
+        int nextInt() throws IOException { return (int) nextLong(); }
     }
 }
