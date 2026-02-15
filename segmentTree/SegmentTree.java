@@ -1,4 +1,4 @@
-package Tree;
+package segmentTree;
 
 public class SegmentTree {
     int[] seg;
