@@ -1,4 +1,4 @@
-package CodeForces;
+package CodeForces._900Rated;
 
 import java.util.Arrays;
 import java.util.Scanner;

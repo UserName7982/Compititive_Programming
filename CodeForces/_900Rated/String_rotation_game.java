@@ -1,8 +1,7 @@
-package CodeForces;
+package CodeForces._900Rated;
 
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class String_rotation_game {
     public static void main(String[] args) {
