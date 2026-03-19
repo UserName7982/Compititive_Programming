@@ -4,8 +4,9 @@ public class DSU {
     
     private int[] parent;
     private int[] size;
-
+    private int components;
     public DSU(int n) {
+        components = n;
         parent = new int[n+1];
         size = new int[n+1];
         for (int i = 1; i <= n; i++) {
@@ -21,9 +22,12 @@ public class DSU {
         return parent[v];
     }
 
-    public void union(int u, int v) {
+    public boolean union(int u, int v) {
         int a = find(u);
         int b = find(v);
+        if (a==b) {
+            return false;
+        }
         if (a != b) {
             if (size[a] < size[b]) {
                 parent[a] = b;
@@ -33,5 +37,7 @@ public class DSU {
                 size[a] += size[b];
             }
         }
+        components--;
+        return true;
     }
 }
