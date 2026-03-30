@@ -1,4 +1,4 @@
-package CodeForces.binarylifting;
+package binarylifting;
 
 public class LCA {
     BinaryLifting bl;
