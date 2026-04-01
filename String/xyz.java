@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-class Solution {
+class xyz {
     public int[] countMentions(int numberOfUsers, List<List<String>> events) {
         events.sort(Comparator.comparingInt(a -> Integer.parseInt(a.get(1))));
         int[] ans = new int[numberOfUsers];
