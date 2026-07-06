@@ -1,5 +1,4 @@
 package CodeForces._900Rated;
-<<<<<<< HEAD
 import java.io.*;
 import java.util.*;
 
@@ -103,6 +102,5 @@ public class Simply_Sitting_on_Chairs {
 
             System.out.println(ans);
         }
->>>>>>> d60e6b16f8b0c86f42c4f819365805bb603b2acd
     }
 }
