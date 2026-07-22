@@ -1,4 +1,4 @@
-package CodeForces._1000Rated;
+// package CodeForces._1000Rated;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,12 +19,12 @@ public class Divan_and_a_New_Project {
             int xi[]=new int[n+1];
             xi[0]=0;
             for(int i=0; i<n; i++){
-                ans+=(2*x*arr[i][0]);
+                ans+=(2L*x*arr[i][0]);
                 xi[arr[i][1]]=x;
                 if(i+1<n)
                 {
                     i++;
-                    ans+=(2*x*arr[i][0]);
+                    ans+=(2L*x*arr[i][0]);
                     xi[arr[i][1]]=-x;
                 }
                 x++;
