@@ -1,6 +1,5 @@
 package Graph;
-//leetcode 3887. Incremental Even-Weighted Cycle Queries
-public class weighted_DSU {
+class Solution {
 
     public class DSU {
 
@@ -69,4 +68,3 @@ public class weighted_DSU {
         return ans;
     }
 }
-

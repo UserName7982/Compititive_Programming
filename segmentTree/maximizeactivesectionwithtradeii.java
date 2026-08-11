@@ -46,13 +46,17 @@ class Solution {
 
     public List<Integer> maxActiveSectionsAfterTrade(String s, int[][] queries) {
         int n = s.length();
+
         List<Integer> con_zero = new ArrayList<>();
         List<Integer> left = new ArrayList<>();
         List<Integer> right = new ArrayList<>();
+
         int totalone = 0;
+
         for(char ch: s.toCharArray()){
             if(ch=='1') totalone++;
         }
+
         for (int i = 0; i < n; i++) {
             int j = i;
 
@@ -82,6 +86,7 @@ class Solution {
         
         SegmentTree st = new SegmentTree(m - 1);
         st.build(0,0,m-2,gain);
+
         for (int[] q : queries) {
             int l = q[0];
             int r = q[1];
@@ -105,6 +110,7 @@ class Solution {
             best = Math.max(best, firstZer + con_zero.get(firstln + 1));
             best = Math.max(best, lastZer + con_zero.get(lastln - 1));
             best = Math.max(best, st.query(firstln + 1, lastln - 2));
+            
             ans.add(totalone + best);
         }
         return ans;
