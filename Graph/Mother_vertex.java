@@ -9,7 +9,7 @@ class MotherVertex {
 	public int findMotherVertex(int V, int[][] edges) {
 		// code here kosaraju's algorithm
 		boolean[] vis = new boolean[V];
-		Stack<Integer> st = new Stack();
+		Stack<Integer> st = new Stack<>();
 		Map<Integer, List<Integer>> map = new HashMap<>();
 		
 		for (int[] node: edges) {
@@ -53,7 +53,7 @@ class MotherVertex {
 		
 		for (int i = 0; i<V; i++) {
 			if (!vis[i])
-				return - 1;
+				return -1;
 		}
 		
 		int ans = Integer.MAX_VALUE;

@@ -1,4 +1,4 @@
-package CodeForces._1500Rated;
+package Codeforces._1500Rated;
 
 import java.util.ArrayList;
 import java.util.Collections;

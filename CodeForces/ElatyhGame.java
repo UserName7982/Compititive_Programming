@@ -1,4 +1,4 @@
-package CodeForces;
+package Codeforces;
 import java.util.Arrays;
 import java.util.Scanner;
 

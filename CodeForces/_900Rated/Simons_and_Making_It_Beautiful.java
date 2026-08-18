@@ -1,4 +1,4 @@
-package CodeForces._900Rated;
+package Codeforces._900Rated;
 import java.util.Scanner;
 
 public class Simons_and_Making_It_Beautiful {

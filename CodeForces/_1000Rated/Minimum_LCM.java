@@ -1,3 +1,4 @@
+package Codeforces._1000Rated;
 import java.util.Scanner;
 
 public class Minimum_LCM {

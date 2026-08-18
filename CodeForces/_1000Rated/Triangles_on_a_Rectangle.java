@@ -1,4 +1,4 @@
-package CodeForces._1000Rated;
+package Codeforces._1000Rated;
 
 import java.util.Scanner;
 

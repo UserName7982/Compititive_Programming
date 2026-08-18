@@ -1,0 +1,88 @@
+class Solution {
+    
+    class node {
+        int maxlen;
+        int leftlen;
+        int rightlen;
+        char leftchar;
+        char rightchar;
+
+        node(int maxlen, int leftlen, int rightlen, char leftchar, char rightchar) {
+            this.maxlen = maxlen;
+            this.leftchar = leftchar;
+            this.rightchar = rightchar;
+            this.leftlen = leftlen;
+            this.rightlen = rightlen;
+        }
+
+        node() {
+        }
+    }
+
+    class SegmentTree {
+        node[] seg;
+
+        SegmentTree(int n) {
+            seg = new node[4 * n];
+        }
+
+        public void build(int i, int l, int r, String s) {
+            if (l == r) {
+                seg[i] = new node(1, 1, 1, s.charAt(l), s.charAt(l));
+                return;
+            }
+            int mid = l + (r - l) / 2;
+            build(2 * i + 1, l, mid, s);
+            build(2 * i + 2, mid + 1, r, s);
+            seg[i] = merge(seg[2 * i + 1], seg[2 * i + 2], mid - l + 1, r - mid);
+        }
+
+        void update(int i, int l, int r, int pos, char ch) {
+            if (l == r) {
+                seg[i] = new node(1, 1, 1, ch, ch);
+                return;
+            }
+            int mid = l + (r - l) / 2;
+            if (pos <= mid) {
+                update(2 * i + 1, l, mid, pos, ch);
+            } else
+                update(2 * i + 2, mid + 1, r, pos, ch);
+            seg[i] = merge(seg[2 * i + 1], seg[2 * i + 2], mid - l + 1, r - mid);
+        }
+    }
+
+    public node merge(node L, node R, int leftlen, int rightlen) {
+        node N = new node();
+        N.leftlen = L.leftlen;
+        if (leftlen == L.rightlen && R.leftchar == L.rightchar) {
+            N.leftlen += R.leftlen;
+        }
+        N.rightlen = R.rightlen;
+        if (rightlen == R.rightlen && R.leftchar == L.rightchar) {
+            N.rightlen += L.rightlen;
+        }
+        N.maxlen = Math.max(L.maxlen, R.maxlen);
+
+        if (L.rightchar == R.leftchar) {
+            N.maxlen = Math.max(N.maxlen, L.rightlen + R.leftlen);
+        }
+        N.leftchar = L.leftchar;
+        N.rightchar = R.rightchar;
+        return N;
+    }
+
+    public int[] longestRepeating(String s, String queryCharacters, int[] queryIndices) {
+        int n = queryIndices.length;
+        int[] ans = new int[n];
+        int m = s.length();
+        SegmentTree Seg = new SegmentTree(m);
+        int i = 0;
+        Seg.build(0, 0, m - 1, s);
+        for (int q : queryIndices) {
+            int indx = q;
+            Seg.update(0, 0, m - 1, indx, queryCharacters.charAt(i));
+            ans[i++] = Seg.seg[0].maxlen;
+        }
+        return ans;
+    }
+}

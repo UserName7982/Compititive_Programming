@@ -1,3 +1,4 @@
+package Graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,7 +43,6 @@ class tarjan {
 					String key1 = "" + v+"," + node;
 					set.add(key);
 					set.add(key1);
-					
 				}
 			} else {
 				low[node] = Math.min(low[node], low[v]);

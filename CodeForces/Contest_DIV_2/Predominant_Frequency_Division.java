@@ -1,4 +1,4 @@
-package CodeForces.Contest_DIV_2;
+package Codeforces.Contest_DIV_2;
 import java.util.Scanner;
 
 public class Predominant_Frequency_Division {

@@ -1,4 +1,4 @@
-package CodeForces;
+package Codeforces;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
