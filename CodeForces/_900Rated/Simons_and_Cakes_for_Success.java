@@ -1,4 +1,4 @@
-package Codeforces._900Rated;
+package CodeForces._900Rated;
 
 import java.nio.channels.ScatteringByteChannel;
 import java.util.ArrayList;

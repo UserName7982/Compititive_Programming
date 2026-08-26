@@ -1,4 +1,4 @@
-package Codeforces._900Rated;
+package CodeForces._900Rated;
 import java.util.Scanner;
 
 public class Permutation_Swap {

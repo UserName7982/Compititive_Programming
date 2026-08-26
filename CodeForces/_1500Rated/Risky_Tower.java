@@ -1,4 +1,4 @@
-package Codeforces._1500Rated;
+package CodeForces._1500Rated;
 
 import java.io.BufferedReader;
 import java.io.IOException;

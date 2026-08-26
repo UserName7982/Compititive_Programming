@@ -1,4 +1,4 @@
-package Codeforces._1500Rated;
+package CodeForces._1500Rated;
 import java.util.*;
 
 public class Grid_Covering {

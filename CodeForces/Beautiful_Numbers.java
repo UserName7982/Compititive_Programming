@@ -1,4 +1,4 @@
-package Codeforces;
+package CodeForces;
 import java.util.*;
 
 public class Beautiful_Numbers {

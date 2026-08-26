@@ -1,4 +1,4 @@
-package Codeforces._900Rated;
+package CodeForces._900Rated;
 import java.util.*;
 
 public class Simons_and_Beating_peaks {

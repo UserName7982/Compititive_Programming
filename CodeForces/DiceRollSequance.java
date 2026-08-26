@@ -1,4 +1,4 @@
-package Codeforces;
+package CodeForces;
 import java.util.Scanner;
 
 public class DiceRollSequance {

@@ -1,4 +1,4 @@
-package Codeforces._900Rated;
+package CodeForces._900Rated;
 import java.util.*;
 
 public class Simply_Sitting_on_Chairs {

@@ -1,3 +1,4 @@
+package CodeForces._1200Rated;
 // package CodeForces._1200Rated;
 
 import java.util.HashSet;
