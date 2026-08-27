@@ -64,10 +64,10 @@ public class Schedule_Management {
     }
 
     private static boolean can(int[] arr, int t, int n, int m) {
-        int complwork = 0;
+        long complwork = 0;
         for (int i = 1; i <= n; i++) {
-            complwork += Math.min(t, t + (t - arr[i]) / 2);
+            complwork += Math.min(t, 1L*arr[i] + (t - arr[i]) / 2);
         }
-        return complwork >= m;
+        return complwork >= (1L*m);
     }
 }

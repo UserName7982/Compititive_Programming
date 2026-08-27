@@ -1,45 +1,36 @@
-import java.io.*;
-import java.util.*;
-
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine().trim());
-        char[] A = br.readLine().trim().toCharArray();
-        char[] B = br.readLine().trim().toCharArray();
-        char[] C = br.readLine().trim().toCharArray();
-
-        int len = 2 * n;
-        int[] posA = new int[n], posB = new int[n], posC = new int[n];
-        collectOnes(A, posA);
-        collectOnes(B, posB);
-        collectOnes(C, posC);
-
-        char[] result = new char[len];
-        Arrays.fill(result, '0');
-        long total = 0;
-
-        for (int i = 0; i < n; i++) {
-            int a = posA[i], b = posB[i], c = posC[i];
-            int mx = Math.max(a, Math.max(b, c));
-            int mn = Math.min(a, Math.min(b, c));
-            int median = a + b + c - mx - mn; 
-            total += (mx - mn);
-            result[median] = '1';
+class Solution {
+    public String lexGreaterPermutation(String s, String target) {
+        int[] freq = new int[26];
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
         }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(total).append('\n');
-        sb.append(new String(result)).append('\n');
-        System.out.print(sb);
+        return solve(0, s, target, new StringBuilder(), freq);
     }
 
-    static void collectOnes(char[] s, int[] pos) {
-        int k = 0;
-        for (int idx = 0; idx < s.length; idx++) {
-            if (s[idx] == '1') {
-                pos[k++] = idx;
+    String solve(int i,String s, String target,StringBuilder ch,int[] freq){
+        if(i>=s.length()){
+            if(target.compareTo(ch.toString())<0) return ch.toString();
+            else return "";
+        }
+        char t=target.charAt(i);
+        String ss="";
+        for(char c=t; c<='z'; c++){
+            if(freq[c-'a']>0){
+                freq[c-'a']--;
+                ch.append(c);
+                if(c==target.charAt(i)){
+                ss=solve(i+1,s,target,ch,freq);
+                if(ss.length()==s.length() && ss.compareTo(target)>0) return ss;
+                }else{
+                    for(char j='a'; j<='z'; j++){
+                        while(freq[j-'a']-->0) ch.append(j);
+                    }
+                    return ch.toString();
+                }
+                freq[c-'a']++;
+                ch.deleteCharAt(ch.length()-1);
             }
         }
+        return ch.toString();
     }
 }
