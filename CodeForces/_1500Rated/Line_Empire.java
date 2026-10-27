@@ -1,4 +1,4 @@
-// package CodeForces._1500Rated;
+package CodeForces._1500Rated;
 import java.io.*;
 
 public class Line_Empire {
